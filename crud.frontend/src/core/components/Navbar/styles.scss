@@ -1,0 +1,50 @@
+.main-nav {
+    height: 70px;
+    width: 100%;
+    color: #fff;
+    align-items: center;
+    padding-left: 40px;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 0;
+}
+
+.nav-logo {
+    width: 50%;
+    opacity: 90%;
+}
+
+
+.main-menu {
+    margin-left: -10px;
+    display: flex;
+    font-size: 18px;
+    width: 480px;
+    justify-content: space-between;
+    
+
+    a {
+        font-style: normal;
+        
+        &.active {
+            font-weight: bold;
+            color: fff  ;
+        }
+
+        &:hover {
+            color: #f1f507;
+    
+        }
+    }
+}
+
+.contact-container {
+    display: flex;
+    align-items: center;
+    margin-left: 30px;
+}
+
+.contact-link {
+    margin: 0 0 0 10px;
+    font-size: 14px;
+}

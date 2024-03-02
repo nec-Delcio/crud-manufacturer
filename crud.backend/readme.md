@@ -58,7 +58,7 @@ Password=
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "localhost:9598/manufacture/find/1",
+          "raw": "localhost:9598/manufacture/find/2",
           "host": [
             "localhost"
           ],
@@ -66,7 +66,7 @@ Password=
           "path": [
             "manufacture",
             "find",
-            "1"
+            "2"
           ]
         }
       },
@@ -107,7 +107,7 @@ Password=
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n  \"manufacturerName\": \"Empresa OneToOne LTDA .\",\r\n  \"manufacturerCNPJ\": \"12345678000190\",\r\n  \"manufacturerFantasyName\": \"One Empresa de tudo um pouco\",\r\n  \"manufacturerSocialName\": \"One\",\r\n  \"manufacturerActive\": \"true\",\r\n  \"manufacturerSite\": \"www.one.com\",\r\n  \"manufacturerCountry\": \"brasil\",\r\n  \"manufacturerCity\": \"Americana\",\r\n  \"manufactureNeighbourhood\": \"centro\"\r\n}",
+          "raw": "{\r\n  \"manufacturerName\": \"Empresa OneToOne LTDA Corp.\",\r\n  \"manufacturerCNPJ\": \"12345678000190\",\r\n  \"manufacturerFantasyName\": \"One Empresa de tudo um pouco\",\r\n  \"manufacturerSocialName\": \"One\",\r\n  \"manufacturerActive\": \"true\",\r\n  \"manufacturerSite\": \"www.one.com\",\r\n  \"manufacturerCountry\": \"brasil\",\r\n  \"manufacturerCity\": \"Americana\",\r\n  \"manufactureNeighbourhood\": \"centro\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -144,6 +144,36 @@ Password=
             "manufacture",
             "delete",
             "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "FindAll - Pageable",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:9598/manufacture/find/allpages?page=0size=20&sort=manufacturerName,asc",
+          "host": [
+            "localhost"
+          ],
+          "port": "9598",
+          "path": [
+            "manufacture",
+            "find",
+            "allpages"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "0size=20"
+            },
+            {
+              "key": "sort",
+              "value": "manufacturerName,asc"
+            }
           ]
         }
       },

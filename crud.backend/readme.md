@@ -6,15 +6,15 @@ Para executar a API:
 ```docker
 $ docker pull eliasneri/crud-backend-java17:latest
 
-$ docker run -p 8080:8080 eliasneri/crud-backend-java17:latest
+$ docker run -p 9598:9598 eliasneri/crud-backend-java17:latest
 ```
-Após baixar o container e executar, os serviços estarão disponíveis na porta 8080, caso deseje mudar a porta, lembre-se de alterar no localhost.
+Após baixar o container e executar, os serviços estarão disponíveis na porta 9598, caso deseje mudar a porta, lembre-se de alterar no localhost.
 
 ### Swagger: 
-http://localhost:8080/manufacture/swagger-ui/index.html
+http://localhost:9598/manufacture/swagger-ui/index.html
 
 ### Acessando o Bando de Dados H2
-http://localhost:8080/manufacture/h2-console
+http://localhost:9598/manufacture/h2-console
 
 Credenciais de acesso:
 Driver Class= org.h2.Driver <br />
@@ -38,11 +38,11 @@ Password=
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "localhost:8080/manufacture/find/all",
+          "raw": "localhost:9598/manufacture/find/all",
           "host": [
             "localhost"
           ],
-          "port": "8080",
+          "port": "9598",
           "path": [
             "manufacture",
             "find",
@@ -58,11 +58,11 @@ Password=
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "localhost:8080/manufacture/find/1",
+          "raw": "localhost:9598/manufacture/find/1",
           "host": [
             "localhost"
           ],
-          "port": "8080",
+          "port": "9598",
           "path": [
             "manufacture",
             "find",
@@ -87,11 +87,11 @@ Password=
           }
         },
         "url": {
-          "raw": "localhost:8080/manufacture/create",
+          "raw": "localhost:9598/manufacture/create",
           "host": [
             "localhost"
           ],
-          "port": "8080",
+          "port": "9598",
           "path": [
             "manufacture",
             "create"
@@ -115,11 +115,11 @@ Password=
           }
         },
         "url": {
-          "raw": "localhost:8080/manufacture/update/1",
+          "raw": "localhost:9598/manufacture/update/1",
           "host": [
             "localhost"
           ],
-          "port": "8080",
+          "port": "9598",
           "path": [
             "manufacture",
             "update",
@@ -135,11 +135,11 @@ Password=
         "method": "DELETE",
         "header": [],
         "url": {
-          "raw": "localhost:8080/manufacture/delete/1",
+          "raw": "localhost:9598/manufacture/delete/1",
           "host": [
             "localhost"
           ],
-          "port": "8080",
+          "port": "9598",
           "path": [
             "manufacture",
             "delete",

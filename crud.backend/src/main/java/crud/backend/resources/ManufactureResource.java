@@ -5,7 +5,9 @@ import crud.backend.services.ManufactureServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -27,9 +29,16 @@ public class ManufactureResource {
     }
 
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping(value = "/create")
-    public void create (@RequestBody ManufactureDTO dto){
-        services.manufactureSave(dto);
+    public ResponseEntity<ManufactureDTO> create (@RequestBody ManufactureDTO dto){
+        dto = services.manufactureSave(dto);
+        URI uri = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/find/{id}")
+                .buildAndExpand(dto.getManufactureId())
+                .toUri();
+        return ResponseEntity.created(uri).body(dto);
 
     }
 

@@ -2,6 +2,7 @@ package crud.backend.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import crud.backend.core.entities.ManufactureEntity;
+import crud.backend.core.utils.Utils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,7 +27,7 @@ public class ManufactureDTO {
     public ManufactureDTO(ManufactureEntity entity){
         manufactureId=entity.getManufactureId();
         manufacturerName=entity.getManufacturerName();
-        manufacturerCNPJ=entity.getManufacturerCNPJ();
+        manufacturerCNPJ= Utils.maskedCNPJ(entity.getManufacturerCNPJ());
         manufacturerFantasyName=entity.getManufacturerFantasyName();
         manufacturerSocialName=entity.getManufacturerSocialName();
         manufacturerActive=entity.getManufacturerActive();

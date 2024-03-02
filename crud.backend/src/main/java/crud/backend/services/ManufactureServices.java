@@ -26,17 +26,19 @@ public class ManufactureServices implements ManufactureBussiness {
     private ModelMapper modelMapper;
 
     @Override
-    public void manufactureSave(ManufactureDTO dto) {
+    public ManufactureDTO manufactureSave(ManufactureDTO dto) {
+        ManufactureEntity entitySaved = new ManufactureEntity();
         if (Utils.validateDto(dto)) {
             if (!repository.findCnpj(dto.getManufacturerCNPJ())) {
-                repository.save(modelMapper.map(dto, ManufactureEntity.class));
+                dto.setManufacturerCNPJ(Utils.unMaskCNPJ(dto.getManufacturerCNPJ()));
+                entitySaved = repository.save(modelMapper.map(dto, ManufactureEntity.class));
             } else {
                 throw new ManufactureInvalidCNPJ("Duplicated CNPJ");
             }
         } else {
             throw new ManufactureInvalidCNPJ("Not registered!!! CNPJ null");
         }
-
+        return dto = modelMapper.map(entitySaved, ManufactureDTO.class);
     }
 
     @Override
@@ -49,6 +51,7 @@ public class ManufactureServices implements ManufactureBussiness {
     @Override
     public ManufactureDTO manufactureFindById(Long id) {
         Optional<ManufactureEntity> entity = repository.findById(id);
+        entity.get().setManufacturerCNPJ(Utils.maskedCNPJ(entity.get().getManufacturerCNPJ()));
         return new ManufactureDTO(entity.orElseThrow(()-> new ManufactureNotFoundException("Manufacture Not Found")));
     }
 
@@ -59,7 +62,7 @@ public class ManufactureServices implements ManufactureBussiness {
         try {
             ManufactureEntity entity = repository.getOne(id);
             entity.setManufacturerName(dto.getManufacturerName());
-            entity.setManufacturerCNPJ(dto.getManufacturerCNPJ());
+            entity.setManufacturerCNPJ(Utils.unMaskCNPJ(dto.getManufacturerCNPJ()));
             entity.setManufacturerFantasyName(dto.getManufacturerFantasyName());
             entity.setManufacturerSocialName(dto.getManufacturerSocialName());
             entity.setManufacturerActive(dto.getManufacturerActive());
@@ -74,7 +77,6 @@ public class ManufactureServices implements ManufactureBussiness {
             return "The update was not performed! id: " + dto.getManufactureId() + " - " + dto.getManufacturerName();
         }
     }
-
 
     @Override
     public String manufactureDelete(Long id) {

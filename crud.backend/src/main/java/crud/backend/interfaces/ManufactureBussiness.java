@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ManufactureBussiness {
 
-    void manufactureSave(ManufactureDTO dto);
+    ManufactureDTO manufactureSave(ManufactureDTO dto);
 
     List<ManufactureDTO> manufactureFindAll();
 

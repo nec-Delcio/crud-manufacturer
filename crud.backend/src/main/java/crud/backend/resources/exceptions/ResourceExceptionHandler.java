@@ -1,5 +1,6 @@
 package crud.backend.resources.exceptions;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import crud.backend.services.exceptions.ManufactureInvalidCNPJ;
 import crud.backend.services.exceptions.ManufactureNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,7 +32,7 @@ public class ResourceExceptionHandler {
         StandardError err = new StandardError();
         err.setTimestamp(Instant.now());
         err.setStatus(status.value());
-        err.setError(e.getMessage());
+        err.setError(String.valueOf(HttpStatus.BAD_REQUEST));
         err.setMessage(e.getMessage());
         err.setPath(request.getRequestURI());
         return ResponseEntity.status(status).body(err);

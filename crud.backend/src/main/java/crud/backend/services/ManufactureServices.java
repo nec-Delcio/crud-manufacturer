@@ -5,11 +5,18 @@ import crud.backend.core.repositories.ManufactureRepository;
 import crud.backend.core.utils.Utils;
 import crud.backend.dto.ManufactureDTO;
 import crud.backend.interfaces.ManufactureBussiness;
+import crud.backend.services.exceptions.ManufactureDatabaseIntegrity;
 import crud.backend.services.exceptions.ManufactureInvalidCNPJ;
 import crud.backend.services.exceptions.ManufactureNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -48,42 +55,58 @@ public class ManufactureServices implements ManufactureBussiness {
         return list.stream().map(ManufactureDTO::new).collect(Collectors.toList());
     }
 
+    public Page<ManufactureDTO> manufacturePageFindAll(Pageable pageRequest) {
+        try {
+            Page<ManufactureEntity> page = repository.findAll(pageRequest);
+            return page.map(ManufactureDTO::new);
+        } catch (RuntimeException e) {
+            throw new ManufactureDatabaseIntegrity("Error loading pages", e.fillInStackTrace() );
+        }
+    }
+
     @Override
     public ManufactureDTO manufactureFindById(Long id) {
         Optional<ManufactureEntity> entity = repository.findById(id);
-        entity.get().setManufacturerCNPJ(Utils.maskedCNPJ(entity.get().getManufacturerCNPJ()));
+            if (!entity.isEmpty())
+                entity.get().setManufacturerCNPJ(Utils.maskedCNPJ(entity.get().getManufacturerCNPJ()));
+
         return new ManufactureDTO(entity.orElseThrow(()-> new ManufactureNotFoundException("Manufacture Not Found")));
     }
 
     @Override
     @Transactional
-    public String manufactureUpdate(Long id, ManufactureDTO dto) {
-        repository.findById(id).orElseThrow(() -> new ManufactureNotFoundException("Manufacture Not Found"));
+    public ManufactureDTO manufactureUpdate(Long id, ManufactureDTO dto) {
         try {
-            ManufactureEntity entity = repository.getOne(id);
-            entity.setManufacturerName(dto.getManufacturerName());
-            entity.setManufacturerCNPJ(Utils.unMaskCNPJ(dto.getManufacturerCNPJ()));
-            entity.setManufacturerFantasyName(dto.getManufacturerFantasyName());
-            entity.setManufacturerSocialName(dto.getManufacturerSocialName());
-            entity.setManufacturerActive(dto.getManufacturerActive());
-            entity.setManufacturerSite(dto.getManufacturerSite());
-            entity.setManufacturerCountry(dto.getManufacturerCountry());
-            entity.setManufacturerCity(dto.getManufacturerCity());
-            entity.setManufactureNeighbourhood(dto.getManufactureNeighbourhood());
+            ManufactureEntity entity = repository.getReferenceById(id);
+                entity.setManufacturerName(dto.getManufacturerName());
+                entity.setManufacturerCNPJ(Utils.unMaskCNPJ(dto.getManufacturerCNPJ()));
+                entity.setManufacturerFantasyName(dto.getManufacturerFantasyName());
+                entity.setManufacturerSocialName(dto.getManufacturerSocialName());
+                entity.setManufacturerActive(dto.getManufacturerActive());
+                entity.setManufacturerSite(dto.getManufacturerSite());
+                entity.setManufacturerCountry(dto.getManufacturerCountry());
+                entity.setManufacturerCity(dto.getManufacturerCity());
+                entity.setManufactureNeighbourhood(dto.getManufactureNeighbourhood());
             repository.save(entity);
+            return new ManufactureDTO(entity);
 
-            return "Successfully updated!";
-        } catch (RuntimeException e) {
-            return "The update was not performed! id: " + dto.getManufactureId() + " - " + dto.getManufacturerName();
+        } catch (EntityNotFoundException e) {
+            throw new ManufactureNotFoundException("Manufacture Not Found");
         }
     }
 
     @Override
+    @Transactional(propagation = Propagation.SUPPORTS)
     public String manufactureDelete(Long id) {
         if (repository.existsById(id)){
-            repository.deleteById(id);
-            return "Deleted successfully";
+            try {
+                repository.deleteById(id);
+                return "Deleted successfully";
+            } catch (DataIntegrityViolationException e){
+                throw new ManufactureDatabaseIntegrity("Database Violation", e.getCause());
+            }
         }
-        throw new ManufactureNotFoundException("Manufacture Not Found");
+            throw new ManufactureNotFoundException("Manufacture Not Found");
     }
+
 }

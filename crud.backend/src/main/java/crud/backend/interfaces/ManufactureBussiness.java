@@ -12,7 +12,7 @@ public interface ManufactureBussiness {
 
     ManufactureDTO manufactureFindById(Long id);
 
-    String manufactureUpdate(Long id, ManufactureDTO dto);
+    ManufactureDTO manufactureUpdate(Long id, ManufactureDTO dto);
 
     String manufactureDelete(Long id);
 

@@ -5,7 +5,7 @@ services:
     image: postgres:latest
     restart: always
     environment:
-      POSTGRES_DB: crud-nec
+      POSTGRES_DB: crud_nec
       POSTGRES_USER: root
       POSTGRES_PASSWORD: 12345678
     ports:

@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: crud-nec
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: 12345678
+    ports:
+      - "5432:5432"
+
+  crud-backend:
+    image: eliasneri/crud-backend-java17:latest
+    restart: always
+    ports:
+      - "9598:9598"
+    depends_on:
+      - postgres
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M

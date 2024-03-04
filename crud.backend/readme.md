@@ -1,26 +1,53 @@
 ### Api-Manufacture
 
-Esta API utiliza a versão 17 do Java, e está implementada para utilização de banco de dados de testes, H2.
+Esta API utiliza a versão 17 do Java, e está implementada para utilização de banco de dados PostgreSQL.
 
-Para executar a API:
+Para executar apenas a API
+
+Certifique de tenha instalado o docker-compose em seu terminal.
+
 ```docker
-$ docker pull eliasneri/crud-backend-java17:latest
-
-$ docker run -p 9598:9598 eliasneri/crud-backend-java17:latest
+$ docker-compose -version
+docker-compose version 1.29.2, build unknown
 ```
-Após baixar o container e executar, os serviços estarão disponíveis na porta 9598, caso deseje mudar a porta, lembre-se de alterar no localhost.
+Copie o conteúdo abaixo em um arquivo chamado docker-compose.yml
+```docker
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: crud-nec
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: 12345678
+    ports:
+      - "5432:5432"
+
+  crud-backend:
+    image: eliasneri/crud-backend-java17:latest
+    restart: always
+    ports:
+      - "9598:9598"
+    depends_on:
+      - postgres
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+```
+Após salvar o arquivo conforme especificado, digite:
+```bash
+$ docker-compose up -d
+```
+
+Isto irá baixar as imagens necessárias para o funcionamento da API, bem como o container do banco de dados Postgres.
+
 
 ### Swagger: 
 http://localhost:9598/manufacture/swagger-ui/index.html
-
-### Acessando o Bando de Dados H2
-http://localhost:9598/manufacture/h2-console
-
-Credenciais de acesso:
-Driver Class= org.h2.Driver <br />
-JDBC URL= jdbc:h2:mem:testdb <br />
-User Name= sa <br />
-Password=
 
 ### Coleção de Requisições (postman)
 ```json

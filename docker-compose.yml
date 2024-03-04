@@ -22,6 +22,11 @@ services:
       - "9598:9598"
     depends_on:
       - postgres
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
     networks:
       - nec-network
 

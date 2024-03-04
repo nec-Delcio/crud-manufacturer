@@ -106,7 +106,7 @@ http://localhost:9598/manufacture/swagger-ui/index.html
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n  \"manufacturerName\": \"Empresa One LTDA.\",\r\n  \"manufacturerCNPJ\": \"12345678000190\",\r\n  \"manufacturerFantasyName\": \"One Empresa de tudo um pouco\",\r\n  \"manufacturerSocialName\": \"One\",\r\n  \"manufacturerActive\": \"true\",\r\n  \"manufacturerSite\": \"www.one.com\",\r\n  \"manufacturerCountry\": \"brasil\",\r\n  \"manufacturerCity\": \"Americana\",\r\n  \"manufactureNeighbourhood\": \"centro\"\r\n}",
+          "raw": "{\r\n  \"manufacturerName\": \"Empresa One LTDA.\",\r\n  \"manufacturerCNPJ\": \"12.345.678/0001-90\",\r\n  \"manufacturerFantasyName\": \"One Empresa de tudo um pouco\",\r\n  \"manufacturerSocialName\": \"One\",\r\n  \"manufacturerActive\": \"true\",\r\n  \"manufacturerSite\": \"www.one.com\",\r\n  \"manufacturerCountry\": \"brasil\",\r\n  \"manufacturerCity\": \"Americana\",\r\n  \"manufactureNeighbourhood\": \"centro\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -134,7 +134,7 @@ http://localhost:9598/manufacture/swagger-ui/index.html
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n  \"manufacturerName\": \"Empresa OneToOne LTDA Corp.\",\r\n  \"manufacturerCNPJ\": \"12345678000190\",\r\n  \"manufacturerFantasyName\": \"One Empresa de tudo um pouco\",\r\n  \"manufacturerSocialName\": \"One\",\r\n  \"manufacturerActive\": \"true\",\r\n  \"manufacturerSite\": \"www.one.com\",\r\n  \"manufacturerCountry\": \"brasil\",\r\n  \"manufacturerCity\": \"Americana\",\r\n  \"manufactureNeighbourhood\": \"centro\"\r\n}",
+          "raw": "{\r\n  \"manufacturerName\": \"Empresa OneToOne LTDA Corp.\",\r\n  \"manufacturerCNPJ\": \"12.345.678/0001-90\",\r\n  \"manufacturerFantasyName\": \"One Empresa de tudo um pouco\",\r\n  \"manufacturerSocialName\": \"One\",\r\n  \"manufacturerActive\": \"true\",\r\n  \"manufacturerSite\": \"www.one.com\",\r\n  \"manufacturerCountry\": \"brasil\",\r\n  \"manufacturerCity\": \"Americana\",\r\n  \"manufactureNeighbourhood\": \"centro\"\r\n}",
           "options": {
             "raw": {
               "language": "json"

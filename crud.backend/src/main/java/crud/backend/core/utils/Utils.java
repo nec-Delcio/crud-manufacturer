@@ -19,8 +19,16 @@ public class Utils {
     }
 
     public static boolean validateDto(ManufactureDTO dto) {
-        if (dto.getManufacturerCNPJ() == null || dto.getManufacturerCNPJ().isEmpty() || dto.getManufacturerCNPJ().isBlank())
-            return false;
+        boolean ok = false;
+        if (dto.getManufacturerCNPJ().isEmpty() || dto.getManufacturerCNPJ().isBlank() || dto.getManufacturerCNPJ() == null){
+            ok = true;
+            throw new ManufactureInvalidCNPJ("CNPN is empty!");
+        }
+
+        int i = dto.getManufacturerCNPJ().length();
+        if (dto.getManufacturerCNPJ().length() != 14 && ok)
+            throw new ManufactureInvalidCNPJ("CNPN is invalid");
+
 
     return true;
 
@@ -45,7 +53,7 @@ public class Utils {
                 maskedCNPJ += "-";
                 maskedCNPJ += cnpj.substring(12, 14);
             } else {
-                throw new ManufactureInvalidCNPJ("the numbers provided for the CNPJ are invalid! length chars!");
+                maskedCNPJ = cnpj + " : invalid!";
             }
         } catch (Exception e) {
             throw new ManufactureInvalidCNPJ("Error on Masked CNPJ!");

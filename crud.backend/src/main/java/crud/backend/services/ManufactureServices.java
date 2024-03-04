@@ -34,18 +34,19 @@ public class ManufactureServices implements ManufactureBussiness {
 
     @Override
     public ManufactureDTO manufactureSave(ManufactureDTO dto) {
+        dto.setManufacturerCNPJ(Utils.unMaskCNPJ(dto.getManufacturerCNPJ()));
         ManufactureEntity entitySaved = new ManufactureEntity();
         if (Utils.validateDto(dto)) {
             if (!repository.findCnpj(dto.getManufacturerCNPJ())) {
-                dto.setManufacturerCNPJ(Utils.unMaskCNPJ(dto.getManufacturerCNPJ()));
                 entitySaved = repository.save(modelMapper.map(dto, ManufactureEntity.class));
             } else {
                 throw new ManufactureInvalidCNPJ("Duplicated CNPJ");
             }
-        } else {
-            throw new ManufactureInvalidCNPJ("Not registered!!! CNPJ null");
         }
-        return dto = modelMapper.map(entitySaved, ManufactureDTO.class);
+
+        dto = modelMapper.map(entitySaved, ManufactureDTO.class);
+        dto.setManufacturerCNPJ(Utils.maskedCNPJ(dto.getManufacturerCNPJ()));
+        return dto;
     }
 
     @Override
